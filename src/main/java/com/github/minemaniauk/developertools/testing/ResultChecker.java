@@ -18,9 +18,9 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.github.minemaniauk.api.testing;
+package com.github.minemaniauk.developertools.testing;
 
-import com.github.minemaniauk.api.console.Console;
+import com.github.minemaniauk.developertools.console.Console;
 import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Assertions;
 

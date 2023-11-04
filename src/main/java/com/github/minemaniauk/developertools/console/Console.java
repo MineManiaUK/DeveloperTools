@@ -18,7 +18,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.github.minemaniauk.api.console;
+package com.github.minemaniauk.developertools.console;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;

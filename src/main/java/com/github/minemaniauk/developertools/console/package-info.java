@@ -18,24 +18,15 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.github.minemaniauk.api.tests.console;
-
-import com.github.minemaniauk.api.console.ConsoleColor;
-import com.github.minemaniauk.api.testing.ResultChecker;
-import org.junit.jupiter.api.Test;
-
-public class TestConsole {
-
-    @Test
-    public void testConsoleColors() {
-        ResultChecker resultChecker = new ResultChecker();
-
-        // Loop though all the colors.
-        for (ConsoleColor color : ConsoleColor.values()) {
-            resultChecker.expect(
-                    color.getCode() + "test",
-                    ConsoleColor.parse(color.getPattern() + "test")
-            );
-        }
-    }
-}
+/**
+ * Classes used for sending messages to the console
+ * with support for colors.
+ *
+ * <ul>
+ *     <li>
+ *         To send a message to console you can use the static methods in
+ *         {@link com.github.minemaniauk.developertools.console.Console}.
+ *     </li>
+ * </ul>
+ */
+package com.github.minemaniauk.developertools.console;

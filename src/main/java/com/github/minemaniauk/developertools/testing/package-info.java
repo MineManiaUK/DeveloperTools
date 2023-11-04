@@ -19,14 +19,14 @@
  */
 
 /**
- * Classes used for sending messages to the console
- * with support for colors.
+ * Classes used for testing code in java junit tests.
+ * A quicker way of testing using junit.
  *
  * <ul>
  *     <li>
- *         To send a message to console you can use the static methods in
- *         {@link com.github.minemaniauk.api.console.Console}.
+ *         To check a result you can use a new instance of a
+ *         {@link com.github.minemaniauk.developertools.testing.ResultChecker}.
  *     </li>
  * </ul>
  */
-package com.github.minemaniauk.api.console;
+package com.github.minemaniauk.developertools.testing;
