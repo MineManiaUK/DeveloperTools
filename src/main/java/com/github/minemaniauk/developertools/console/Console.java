@@ -29,8 +29,102 @@ import org.jetbrains.annotations.Nullable;
  */
 public class Console {
 
-    private static String logPrefix = "&7[&aLOG&7] ";
-    private static String warnPrefix = "&7[&eWARN&7] ";
+    private static @Nullable String logPrefix = "&7[&aLOG&7] ";
+    private static @Nullable String warnPrefix = "&7[&eWARN&7] ";
+
+    /**
+     * Represents a local console logger.
+     * Used to configure custom prefixes for logging.
+     */
+    public class Local {
+
+        private boolean hasGlobalPrefix;
+        private @Nullable String localLogPrefix = "";
+        private @Nullable String localWarnPrefix = "";
+
+        /**
+         * Used to create a new instance of
+         * a console logger.
+         *
+         * @param hasGlobalPrefix True if the global prefix should be used.
+         */
+        public Local(boolean hasGlobalPrefix) {
+            this.hasGlobalPrefix = hasGlobalPrefix;
+        }
+
+        public @NotNull Local setLocalLogPrefix(@Nullable String localLogPrefix) {
+            this.localLogPrefix = localLogPrefix;
+            return this;
+        }
+
+        public @NotNull Local setLocalWarnPrefix(@Nullable String localWarnPrefix) {
+            this.localWarnPrefix = localWarnPrefix;
+            return this;
+        }
+
+        public @NotNull Local setBothLocalPrefixes(@Nullable String localPrefix) {
+            this.localLogPrefix = localPrefix;
+            this.localWarnPrefix = localPrefix;
+            return this;
+        }
+
+        /**
+         * Used to log a message in console
+         * using this instance of the local console
+         * with the custom prefixes.
+         *
+         * @param message The message to log.
+         * @return This instance.
+         */
+        public @NotNull Local log(@NotNull String message) {
+            String prefix = (this.hasGlobalPrefix ? Console.logPrefix : "")
+                    + (this.localLogPrefix == null ? "" : this.localLogPrefix);
+
+            System.out.println(ConsoleColor.parse(
+                    prefix + message
+            ));
+            return this;
+        }
+
+        /**
+         * Used to log a warning in console
+         * using this instance of the local console
+         * with the custom prefixes.
+         *
+         * @param message The message to log.
+         * @return This instance.
+         */
+        public @NotNull Local warn(@NotNull String message) {
+            String prefix = (this.hasGlobalPrefix ? Console.warnPrefix : "")
+                    + (this.localWarnPrefix == null ? "" : this.localWarnPrefix);
+
+            System.out.println(ConsoleColor.parse(
+                    prefix + message
+            ));
+            return this;
+        }
+
+        /**
+         * Used to create a new instance of a local console
+         * class with an extension to the prefixes.
+         *
+         * @param extensionPrefix The extension to add.
+         * @return The new instance of the local console logger.
+         */
+        public @NotNull Local createExtension(@Nullable String extensionPrefix) {
+            Local clone = this.clone();
+            clone.setLocalLogPrefix(clone.localLogPrefix + extensionPrefix);
+            clone.setLocalWarnPrefix(clone.localWarnPrefix + extensionPrefix);
+            return clone;
+        }
+
+        @Override
+        protected @NotNull Local clone() {
+            return new Local(this.hasGlobalPrefix)
+                    .setLocalLogPrefix(this.localLogPrefix)
+                    .setLocalWarnPrefix(this.localWarnPrefix);
+        }
+    }
 
     /**
      * Used to log a message in console.
@@ -73,6 +167,17 @@ public class Console {
      * @param prefix The instance of the prefix.
      */
     public static void setWarnPrefix(@Nullable String prefix) {
+        Console.warnPrefix = prefix;
+    }
+
+    /**
+     * Used to set both the log and warn prefix.
+     * This will support replacing color codes.
+     *
+     * @param prefix The instance of the prefix.
+     */
+    public static void setBothPrefixes(@Nullable String prefix) {
+        Console.logPrefix = prefix;
         Console.warnPrefix = prefix;
     }
 }
