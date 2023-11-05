@@ -21,6 +21,7 @@
 package com.github.minemaniauk.developertools.testing;
 
 import com.github.minemaniauk.developertools.console.Console;
+import com.github.minemaniauk.developertools.console.Logger;
 import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Assertions;
 
@@ -34,6 +35,7 @@ import java.util.List;
  */
 public class ResultChecker {
 
+    private final Logger logger = new Logger(false).setBothPrefixes("&a[TEST] &r");
     private final List<Runnable> fallBackRunnableList = new ArrayList<>();
 
     /**
@@ -45,7 +47,7 @@ public class ResultChecker {
      */
     public @NotNull ResultChecker expect(boolean condition) {
         if (condition) {
-            Console.log("&aPassed");
+            this.logger.log("&aPassed");
             return this;
         }
 
@@ -64,9 +66,9 @@ public class ResultChecker {
      */
     public @NotNull ResultChecker expect(Object value1, Object value2) {
         if (value1.equals(value2)) {
-            Console.log("&aPassed");
-            Console.log("&7Value 1 &r: &e" + value1);
-            Console.log("&7Value 2 &r: &e" + value2);
+            this.logger.log("&aPassed");
+            this.logger.log("&7Value 1 &r: &e" + value1);
+            this.logger.log("&7Value 2 &r: &e" + value2);
             return this;
         }
 
@@ -129,7 +131,7 @@ public class ResultChecker {
      * @return This instance.
      */
     public @NotNull ResultChecker then(@NotNull String message) {
-        Console.log(message);
+        this.logger.log(message);
         return this;
     }
 }

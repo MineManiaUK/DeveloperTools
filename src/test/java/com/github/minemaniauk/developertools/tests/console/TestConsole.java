@@ -20,7 +20,9 @@
 
 package com.github.minemaniauk.developertools.tests.console;
 
+import com.github.minemaniauk.developertools.console.Console;
 import com.github.minemaniauk.developertools.console.ConsoleColor;
+import com.github.minemaniauk.developertools.console.Logger;
 import com.github.minemaniauk.developertools.testing.ResultChecker;
 import org.junit.jupiter.api.Test;
 
@@ -37,5 +39,21 @@ public class TestConsole {
                     ConsoleColor.parse(color.getPattern() + "test")
             );
         }
+    }
+
+    @Test
+    public void testConsolePrefixes() {
+        // Set global prefix.
+        Console.setBothPrefixes("[TEST] ");
+
+        Logger logger = new Logger(true);
+        logger.setBothPrefixes("[EXTEND] ");
+
+        Logger extension = logger.createExtension("[EXTEND2] ");
+
+        new ResultChecker()
+                .expect("[TEST] [EXTEND] [EXTEND2] test", extension.getMessageAsLog("test"))
+                .expect("[TEST] [EXTEND] [EXTEND2] test2", extension.getMessageAsWarn("test2"));
+
     }
 }
